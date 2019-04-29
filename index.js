@@ -112,7 +112,7 @@ class instance extends instance_skel {
 			this.log('error', 'No model selected.  Setting as PIX 270i temporarily.');
 		}
 
-		this.serActions({
+		this.setActions({
 			'play':              { label:   'Play' },
 			'stop':              { label:   'Stop' },
 			'rec':               { label:   'Record' },
@@ -289,10 +289,21 @@ class instance extends instance_skel {
 				break;
 		}
 
-		if (cmd != undefined) {
+		if (cmd !== undefined && this.config.host !== undefined) {
 			cmd = encodeURI('http://' + this.config.host + '/sounddevices/' + cmd);
 
-			this.system.emit('rest', cmd, {}, this.processResult.bind(this));
+			//this.system.emit('rest', cmd, {}, this.processResult.bind(this));
+
+			this.system.emit('rest', cmd, {}, (err, result) => {
+
+				if (err !== null) {
+					this.log('error', 'HTTP POST Request failed (' + result.error.code + ')');
+					this.status(this.STATUS_ERROR, result.error.code);
+				}
+				else {
+					this.status(this.STATUS_OK);
+				}
+			});
 		}
 	}
 
@@ -321,7 +332,7 @@ class instance extends instance_skel {
 				tooltip: 'The make/model of the device',
 				choices: this.CHOICES_MODEL,
 				default: 270
-			},
+			}/**,
 			{
 				type:    'text',
 				id:      'info',
@@ -345,7 +356,7 @@ class instance extends instance_skel {
 				width:   6,
 				regex:   '/^([1-8][0-9]{2}|9[0-8][0-9]|99[0-9]|[1-4][0-9]{3}|5000)$/',
 				default: '500'
-			}
+			}**/
 		]
 	}
 
@@ -357,7 +368,7 @@ class instance extends instance_skel {
 	 */
 	destroy() {
 		debug("destory", this.id);
-		this.system.emit('rest_poll_destroy', this.id);
+		//this.system.emit('rest_poll_destroy', this.id);
 	}
 
 	/**
@@ -383,7 +394,7 @@ class instance extends instance_skel {
 	initFeedbacks() {
 		// feedbacks
 		var feedbacks = {};
-
+		/**
 		feedbacks['transport'] = {
 			label:       'Change colors from transport state',
 			description: 'When the device is in the selected transport state, change colors of the bank',
@@ -458,7 +469,7 @@ class instance extends instance_skel {
 			}
 		};
 
-		this.setFeedbackDefinitions(feedbacks);
+		this.setFeedbackDefinitions(feedbacks);**/
 	}
 
 	/**
@@ -474,30 +485,30 @@ class instance extends instance_skel {
 		for (var i in this.CHOICES_KEYCODE) {
 			presets.push({
 				category: 'Front Panel Buttons',
-				label: 'Toggle downstream KEY' + (i+1),
+				label: this.CHOICES_KEYCODE[i].label,
 				bank: {
 					style: 'text',
-					text: ,
+					text: this.CHOICES_KEYCODE[i].label,
 					size: 'auto',
 					color: this.rgb(255,255,255),
 					bgcolor: 0
 				},
-				feedbacks: [
+				/**feedbacks: [
 					{
 						type: 'keyState',
 						options: {
 							bg: this.rgb(255,0,0),
 							fg: this.rgb(255,255,255),
-							key: i
+							key: this.CHOICES_KEYCODE[i].id
 						}
 					}
-				],
+				],**/
 				actions: [
 					{
 						action: 'keyPress',
 						options: {
-							keyCode: i.id,
-							keyEventType: 'keyPress'
+							keyCode: this.CHOICES_KEYCODE[i].id,
+							keyEventType: 'KeyPress'
 						}
 					}
 				],
@@ -505,15 +516,15 @@ class instance extends instance_skel {
 					{
 						action: 'keyPress',
 						options: {
-							keyCode: i.id,
-							keyEventType: 'keyRelease'
+							keyCode: this.CHOICES_KEYCODE[i].id,
+							keyEventType: 'KeyRelease'
 						}
 					}
 				]
 			});
 		}
 
-		this.setPresetDefinitions(presets);*/
+		this.setPresetDefinitions(presets);
 	}
 
 	/**
@@ -534,7 +545,7 @@ class instance extends instance_skel {
 	 * @since 1.0.0
 	 */
 	processConfig() {
-		this.system.emit('rest_poll_destroy', this.id);
+		//this.system.emit('rest_poll_destroy', this.id);
 
 		this.pollUrl         = encodeURI('http://' + this.config.host + '/sounddevices/update');
 		/* Test URL cannot be changed without also updating processResult() to account for different test response */
@@ -562,14 +573,14 @@ class instance extends instance_skel {
 		this.initPresets();
 
 		// technically should be able to test pollInterval > 0 since its REGEX enforced, but meh
-		if (this.config.host !== undefined && this.config.feedback == 1 && this.config.pollInterval >= 100 && this.config.pollInterval <= 5000 ) {
+		/**if (this.config.host !== undefined && this.config.feedback == 1 && this.config.pollInterval >= 100 && this.config.pollInterval <= 5000 ) {
 			this.initFeedbacks();
 			this.initVariables();
 			this.setupConnectivtyTester();
 		}
 		else {
 			this.status(this.STATUS_OK);
-		}
+		}*/
 	}
 
 	/**
