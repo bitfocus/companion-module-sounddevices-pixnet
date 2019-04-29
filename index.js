@@ -489,7 +489,7 @@ class instance extends instance_skel {
 				bank: {
 					style: 'text',
 					text: this.CHOICES_KEYCODE[i].label,
-					size: 'auto',
+					size: '18',
 					color: this.rgb(255,255,255),
 					bgcolor: 0
 				},
