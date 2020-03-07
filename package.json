@@ -2,7 +2,7 @@
 	"name": "sounddevices-pixnet",
 	"version": "1.0.0",
 	"api_version": "1.0.0",
-	"keywords": [ "Recorders" ],
+	"keywords": [ "Recording" ],
 	"manufacturer": "Sound Devices",
 	"product": "PIXNET",
 	"shortname": "pixnet",
