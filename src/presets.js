@@ -8,14 +8,13 @@ import { Choices } from './setup.js'
  * @since 1.0.0
  */
 export function updatePresets() {
-	var presets = []
+	let presets = {}
 
-	// Front panel buttons
-	for (var i in Choices.KeyCode) {
-		presets.push({
+	for (let i in Choices.KeyCode) {
+		presets[Choices.KeyCode[i].label] = {
 			type: 'button',
 			category: 'Front Panel Buttons',
-			label: Choices.KeyCode[i].label,
+			name: Choices.KeyCode[i].label,
 			style: {
 				text: Choices.KeyCode[i].label,
 				size: '18',
@@ -44,7 +43,8 @@ export function updatePresets() {
 					],
 				},
 			],
-		})
+			feedbacks: [],
+		}
 	}
 
 	this.setPresetDefinitions(presets)

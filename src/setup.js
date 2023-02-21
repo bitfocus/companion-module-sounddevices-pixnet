@@ -88,7 +88,8 @@ export const Fields = {
 	},
 	ButtonText: {
 		type: 'textinput',
-		label: 'Button Text to Push (exactly as it appears on the LCD)',
+		label: 'Button Text to Push',
+		tooltip: 'Enter text exactly as it appears on the LCD',
 		id: 'buttonText',
 		regex: '/^[a-zA-Z0-9_-s]*$/',
 		default: 'OK',
@@ -130,7 +131,8 @@ export const Fields = {
 	},
 	Time: {
 		type: 'textinput',
-		label: 'Time (0 disables automatic dismissal)',
+		label: 'Time',
+		tooltip: '0 disables automatic dismissal',
 		id: 'time',
 		regex: '/^([0]?[0-9]|[1-5][0-9]|60)$/',
 		default: '2',

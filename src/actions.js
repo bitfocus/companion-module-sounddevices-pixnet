@@ -31,7 +31,7 @@ export function updateActions() {
 		},
 		fastForward: {
 			name: 'Fast Forward',
-			tooltip: "This command will have no effect when the transport state is 'Stop' or 'Record'.",
+			description: "This command will have no effect when the transport state is 'Stop' or 'Record'.",
 			options: [Fields.PlaybackSpeed],
 			callback: ({ options }) => {
 				this.sendCommand(`invoke/RemoteApi/fastForwardPlay(PlaybackSpeed)/1/10,${options.playbackSpeed}`)
@@ -39,7 +39,7 @@ export function updateActions() {
 		},
 		fastReverse: {
 			name: 'Fast Reverse',
-			tooltip: "This command will have no effect when the transport state is 'Stop' or 'Record'.",
+			description: "This command will have no effect when the transport state is 'Stop' or 'Record'.",
 			options: [Fields.PlaybackSpeed],
 			callback: ({ options }) => {
 				this.sendCommand(`invoke/RemoteApi/fastReversePlay(PlaybackSpeed)/1/10,${options.playbackSpeed}`)
@@ -47,7 +47,7 @@ export function updateActions() {
 		},
 		falseTake: {
 			name: 'False Take',
-			tooltip: "This command will trigger an OK/Cancel dialog.  Use a 'Close Message Box' action to complete.",
+			description: "This command will trigger an OK/Cancel dialog.  Use a 'Close Message Box' action to complete.",
 			options: [],
 			callback: () => {
 				this.sendCommand('invoke/RemoteApi/falseTake()')
