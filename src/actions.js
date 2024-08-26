@@ -72,7 +72,7 @@ export function updateActions() {
 			options: [Fields.KeyCode, Fields.KeyEventType],
 			callback: ({ options }) => {
 				this.sendCommand(
-					`invoke/RemoteApi/simulateKey(int,KeyEventType)/2/5,${options.keyCode}/10,${options.keyEventType}`
+					`invoke/RemoteApi/simulateKey(int,KeyEventType)/2/5,${options.keyCode}/10,${options.keyEventType}`,
 				)
 			},
 		},
